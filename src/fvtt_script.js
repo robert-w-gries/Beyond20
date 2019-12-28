@@ -2558,7 +2558,8 @@ function all(iterable) {
 if (!all.__argnames__) Object.defineProperties(all, {
     __argnames__ : {value: ["iterable"]}
 });
-var define_str_func, ρσ_unpack, ρσ_orig_split, ρσ_orig_replace;
+var decimal_sep, define_str_func, ρσ_unpack, ρσ_orig_split, ρσ_orig_replace;
+decimal_sep = 1.1.toLocaleString()[1];
 function ρσ_repr_js_builtin(x, as_array) {
     var ans, b, keys, key;
     ans = [];
@@ -2935,7 +2936,7 @@ define_str_func("format", function () {
                     value = value.toExponential(prec - 1);
                 }
                 value = value.replace(/0+$/g, "");
-                if (value[value.length-1] === ".") {
+                if (value[value.length-1] === decimal_sep) {
                     value = value.slice(0, -1);
                 }
                 if (ftype === "G") {
@@ -4430,9 +4431,6 @@ var str = ρσ_str, repr = ρσ_repr;;
                             pos = close + 1;
                             continue;
                         }
-                        if (extension === "<") {
-                            throw new SyntaxError("Look behind assertions are not supported in JavaScript");
-                        }
                         if (extension === "(") {
                             throw new SyntaxError("Group existence assertions are not supported in JavaScript");
                         }
@@ -5185,7 +5183,9 @@ var str = ρσ_str, repr = ρσ_repr;;
             s.jsset.add("aside");
             s.jsset.add("audio");
             s.jsset.add("b");
+            s.jsset.add("base");
             s.jsset.add("big");
+            s.jsset.add("body");
             s.jsset.add("blockquote");
             s.jsset.add("br");
             s.jsset.add("button");
@@ -5224,6 +5224,7 @@ var str = ρσ_str, repr = ρσ_repr;;
             s.jsset.add("h5");
             s.jsset.add("h6");
             s.jsset.add("hr");
+            s.jsset.add("head");
             s.jsset.add("i");
             s.jsset.add("iframe");
             s.jsset.add("img");
@@ -6490,12 +6491,28 @@ var str = ρσ_str, repr = ρσ_repr;;
         });
 
         function initializeMarka() {
-            var groups, group;
+            var groups, buttons, group, trigger, button;
             groups = $(".beyond20-option-combobox");
+            buttons = $(".beyond20-option-button");
             var ρσ_Iter4 = ρσ_Iterable(groups);
             for (var ρσ_Index4 = 0; ρσ_Index4 < ρσ_Iter4.length; ρσ_Index4++) {
                 group = ρσ_Iter4[ρσ_Index4];
                 initializeMarkaGroup(group);
+            }
+            var ρσ_Iter5 = ρσ_Iterable(buttons);
+            for (var ρσ_Index5 = 0; ρσ_Index5 < ρσ_Iter5.length; ρσ_Index5++) {
+                button = ρσ_Iter5[ρσ_Index5];
+                trigger = $(button).find(".trigger");
+                trigger.bind("click", (function() {
+                    var ρσ_anonfunc = function (event) {
+                        event.preventDefault();
+                        alert("TEST TEST TEST");
+                    };
+                    if (!ρσ_anonfunc.__argnames__) Object.defineProperties(ρσ_anonfunc, {
+                        __argnames__ : {value: ["event"]}
+                    });
+                    return ρσ_anonfunc;
+                })());
             }
         };
 
@@ -6508,9 +6525,9 @@ var str = ρσ_str, repr = ρσ_repr;;
             }
             var settings, e, o_type, val, choices, key, option;
             settings = {};
-            var ρσ_Iter5 = ρσ_Iterable(_list);
-            for (var ρσ_Index5 = 0; ρσ_Index5 < ρσ_Iter5.length; ρσ_Index5++) {
-                option = ρσ_Iter5[ρσ_Index5];
+            var ρσ_Iter6 = ρσ_Iterable(_list);
+            for (var ρσ_Index6 = 0; ρσ_Index6 < ρσ_Iter6.length; ρσ_Index6++) {
+                option = ρσ_Iter6[ρσ_Index6];
                 e = $("#" + option);
                 if (e.length > 0) {
                     o_type = _list[(typeof option === "number" && option < 0) ? _list.length + option : option].type;
@@ -6519,9 +6536,9 @@ var str = ρσ_str, repr = ρσ_repr;;
                     } else if ((o_type === "combobox" || typeof o_type === "object" && ρσ_equals(o_type, "combobox"))) {
                         val = e.text();
                         choices = _list[(typeof option === "number" && option < 0) ? _list.length + option : option].choices;
-                        var ρσ_Iter6 = ρσ_Iterable(choices);
-                        for (var ρσ_Index6 = 0; ρσ_Index6 < ρσ_Iter6.length; ρσ_Index6++) {
-                            key = ρσ_Iter6[ρσ_Index6];
+                        var ρσ_Iter7 = ρσ_Iterable(choices);
+                        for (var ρσ_Index7 = 0; ρσ_Index7 < ρσ_Iter7.length; ρσ_Index7++) {
+                            key = ρσ_Iter7[ρσ_Index7];
                             if ((choices[(typeof key === "number" && key < 0) ? choices.length + key : key] === val || typeof choices[(typeof key === "number" && key < 0) ? choices.length + key : key] === "object" && ρσ_equals(choices[(typeof key === "number" && key < 0) ? choices.length + key : key], val))) {
                                 settings[(typeof option === "number" && option < 0) ? settings.length + option : option] = key;
                                 break;
@@ -6551,9 +6568,9 @@ var str = ρσ_str, repr = ρσ_repr;;
                 _list = ρσ_kwargs_obj._list;
             }
             var o_type, val, choices, option;
-            var ρσ_Iter7 = ρσ_Iterable(settings);
-            for (var ρσ_Index7 = 0; ρσ_Index7 < ρσ_Iter7.length; ρσ_Index7++) {
-                option = ρσ_Iter7[ρσ_Index7];
+            var ρσ_Iter8 = ρσ_Iterable(settings);
+            for (var ρσ_Index8 = 0; ρσ_Index8 < ρσ_Iter8.length; ρσ_Index8++) {
+                option = ρσ_Iter8[ρσ_Index8];
                 if (!_list[(typeof option === "number" && option < 0) ? _list.length + option : option]) {
                     continue;
                 }
@@ -6656,14 +6673,14 @@ var str = ρσ_str, repr = ρσ_repr;;
             title = (short) ? "Send Beyond 20 rolls to" : opt.title;
             description_p = list(map(E.p, description.split("\n")));
             options = ρσ_list_decorate([]);
-            var ρσ_Iter8 = ρσ_Iterable(dropdown_options);
-            for (var ρσ_Index8 = 0; ρσ_Index8 < ρσ_Iter8.length; ρσ_Index8++) {
-                option = ρσ_Iter8[ρσ_Index8];
+            var ρσ_Iter9 = ρσ_Iterable(dropdown_options);
+            for (var ρσ_Index9 = 0; ρσ_Index9 < ρσ_Iter9.length; ρσ_Index9++) {
+                option = ρσ_Iter9[ρσ_Index9];
                 options.append(E.li(ρσ_interpolate_kwargs.call(E, E.a, [option].concat([ρσ_desugar_kwargs({href: "#"})]))));
             }
-            var ρσ_Iter9 = ρσ_Iterable(description_p);
-            for (var ρσ_Index9 = 0; ρσ_Index9 < ρσ_Iter9.length; ρσ_Index9++) {
-                p = ρσ_Iter9[ρσ_Index9];
+            var ρσ_Iter10 = ρσ_Iterable(description_p);
+            for (var ρσ_Index10 = 0; ρσ_Index10 < ρσ_Iter10.length; ρσ_Index10++) {
+                p = ρσ_Iter10[ρσ_Index10];
                 p.classList.add("select");
             }
             return ρσ_interpolate_kwargs.call(E, E.li, [ρσ_interpolate_kwargs.call(E, E.label, [ρσ_interpolate_kwargs.call(E, E.h4, [title].concat([ρσ_desugar_kwargs({class_: "select"})]))].concat(description_p).concat([ρσ_interpolate_kwargs.call(E, E.div, [ρσ_interpolate_kwargs.call(E, E.a, ["All VTT Tabs"].concat([ρσ_desugar_kwargs({id: name, class_: "input select beyond20-option-input", href: ""})])), ρσ_interpolate_kwargs.call(E, E.ul, options.concat([ρσ_desugar_kwargs({class_: "dropdown-menu"})])), ρσ_interpolate_kwargs.call(E, E.i, [ρσ_desugar_kwargs({id: name + "--icon", class_: "icon select"})])].concat([ρσ_desugar_kwargs({class_: "button-group"})]))]).concat([ρσ_desugar_kwargs({class_: "list-content", for_: name})]))].concat([ρσ_desugar_kwargs({id: "beyond20-option-vtt-tab", class_: "list-group-item beyond20-option beyond20-option-combobox" + ((short) ? " vtt-tab-short" : "")})]));
@@ -6742,9 +6759,9 @@ var str = ρσ_str, repr = ρσ_repr;;
                 }
                 if ((typeof new_options !== "undefined" && new_options !== null)) {
                     dropdown_options = ρσ_list_decorate([]);
-                    var ρσ_Iter10 = ρσ_Iterable(new_options);
-                    for (var ρσ_Index10 = 0; ρσ_Index10 < ρσ_Iter10.length; ρσ_Index10++) {
-                        option = ρσ_Iter10[ρσ_Index10];
+                    var ρσ_Iter11 = ρσ_Iterable(new_options);
+                    for (var ρσ_Index11 = 0; ρσ_Index11 < ρσ_Iter11.length; ρσ_Index11++) {
+                        option = ρσ_Iter11[ρσ_Index11];
                         dropdown_options.append(E.li(ρσ_interpolate_kwargs.call(E, E.a, [option].concat([ρσ_desugar_kwargs({href: "#"})]))));
                     }
                     combobox.replaceWith(createRoll20TabCombobox("vtt-tab", short, dropdown_options));
@@ -7403,7 +7420,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 data = ρσ_kwargs_obj.data;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var advantage, roll_1, roll_2, roll_3;
                 advantage = request.advantage;
                 if ((advantage === RollType.prototype.QUERY || typeof advantage === "object" && ρσ_equals(advantage, RollType.prototype.QUERY))) {
@@ -7520,7 +7538,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 is_total = ρσ_kwargs_obj.is_total;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var hit, fail, roll_type_class, total, tooltip;
                 hit = roll.isCriticalHit();
                 fail = roll.isCriticalFail();
@@ -7583,7 +7602,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 open = ρσ_kwargs_obj.open;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var play_sound, buttons, makeCB, html, attr, ρσ_unpack, name, value, roll_html, i, roll, add_totals, total_damages, is_total, roll_name, kind_of_damage, regular, versatile, flags, key, button, character;
                 play_sound = false;
                 buttons = {};
@@ -8100,7 +8120,8 @@ var str = ρσ_str, repr = ρσ_repr;;
         Beyond20RollRenderer.prototype.buildAttackRolls = function buildAttackRolls(request, custom_roll_dice) {
             var self = this;
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var to_hit, damage_rolls, is_critical, critical_limit, custom, to_hit_mod, damages, damage_types, critical_damages, critical_damage_types, damage_choices, critical_damage_choices, idx, dmgtype, chromatic_type, crit_damage, base_damage, ttd_dice, has_versatile, roll, dmg_type, damage_flags, suffix, i, ρσ_unpack, flags, chaos_bolt_damages, r, chaotic_type, dmg_roll;
                 to_hit = ρσ_list_decorate([]);
                 damage_rolls = ρσ_list_decorate([]);
@@ -8269,7 +8290,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 custom_roll_dice = ρσ_kwargs_obj.custom_roll_dice;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var ρσ_unpack, to_hit, damage_rolls, data, roll_info;
                 ρσ_unpack = await self.buildAttackRolls(request, custom_roll_dice);
 ρσ_unpack = ρσ_unpack_asarray(2, ρσ_unpack);
@@ -8332,7 +8354,8 @@ var str = ρσ_str, repr = ρσ_repr;;
         Beyond20RollRenderer.prototype.rollSpellAttack = function rollSpellAttack(request, custom_roll_dice) {
             var self = this;
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var spell_card, roll_info, components, prefix, ρσ_unpack, attack_rolls, damage_rolls;
                 spell_card = self.buildSpellCard(request);
                 roll_info = ρσ_list_decorate([]);
@@ -8959,16 +8982,17 @@ return this.__repr__();
             __argnames__ : {value: ["request", "custom_roll_dice"]}
         });
 
-        async        function addInitiativeToCombat(roll) {
+        async;
+        function addInitiativeToCombat(roll) {
             var combatant, promise, token;
             if (canvas.tokens.controlledTokens.length > 0) {
                 if (ρσ_exists.n(game.combat)) {
                     if ((game.combat.scene.id !== canvas.scene.id && (typeof game.combat.scene.id !== "object" || ρσ_not_equals(game.combat.scene.id, canvas.scene.id)))) {
                         ui.notifications.warn("Cannot add initiative to tracker: Encounter was not created for this scene");
                     } else {
-                        var ρσ_Iter23 = ρσ_Iterable(canvas.tokens.controlledTokens);
-                        for (var ρσ_Index23 = 0; ρσ_Index23 < ρσ_Iter23.length; ρσ_Index23++) {
-                            token = ρσ_Iter23[ρσ_Index23];
+                        var ρσ_Iter0 = ρσ_Iterable(canvas.tokens.controlledTokens);
+                        for (var ρσ_Index0 = 0; ρσ_Index0 < ρσ_Iter0.length; ρσ_Index0++) {
+                            token = ρσ_Iter0[ρσ_Index0];
                             combatant = game.combat.getCombatantByToken(token.id);
                             if (combatant) {
                                 promise = game.combat.updateCombatant((function(){
@@ -9053,9 +9077,9 @@ return this.__repr__();
                     }).call(this));
                 }
             }
-            var ρσ_Iter24 = ρσ_Iterable(tokens);
-            for (var ρσ_Index24 = 0; ρσ_Index24 < ρσ_Iter24.length; ρσ_Index24++) {
-                token = ρσ_Iter24[ρσ_Index24];
+            var ρσ_Iter1 = ρσ_Iterable(tokens);
+            for (var ρσ_Index1 = 0; ρσ_Index1 < ρσ_Iter1.length; ρσ_Index1++) {
+                token = ρσ_Iter1[ρσ_Index1];
                 if (token.actor && token.data.actorLink) {
                     total = (total) ? total : token.actor.data.attributes.hp.max;
                     token.actor.update((function(){
@@ -9132,9 +9156,9 @@ return this.__repr__();
                     });
                     return ρσ_anonfunc;
                 })());
-                var ρσ_Iter25 = ρσ_Iterable(tokens);
-                for (var ρσ_Index25 = 0; ρσ_Index25 < ρσ_Iter25.length; ρσ_Index25++) {
-                    token = ρσ_Iter25[ρσ_Index25];
+                var ρσ_Iter2 = ρσ_Iterable(tokens);
+                for (var ρσ_Index2 = 0; ρσ_Index2 < ρσ_Iter2.length; ρσ_Index2++) {
+                    token = ρσ_Iter2[ρσ_Index2];
                     effects = token.data.effects;
                     new_effects = ρσ_list_decorate([]);
                     new_conditions = conditions.map((function() {
@@ -9154,9 +9178,9 @@ return this.__repr__();
                             new_conditions.push("exhaustion" + exhaustion + ".svg");
                         }
                     }
-                    var ρσ_Iter26 = ρσ_Iterable(effects);
-                    for (var ρσ_Index26 = 0; ρσ_Index26 < ρσ_Iter26.length; ρσ_Index26++) {
-                        effect = ρσ_Iter26[ρσ_Index26];
+                    var ρσ_Iter3 = ρσ_Iterable(effects);
+                    for (var ρσ_Index3 = 0; ρσ_Index3 < ρσ_Iter3.length; ρσ_Index3++) {
+                        effect = ρσ_Iter3[ρσ_Index3];
                         if (!effect.startsWith("modules/beyond20/conditions/")) {
                             new_effects.push(effect);
                         } else {
@@ -9213,9 +9237,9 @@ return this.__repr__();
 
         function disconnectAllEvents() {
             var event;
-            var ρσ_Iter27 = ρσ_Iterable(registered_events);
-            for (var ρσ_Index27 = 0; ρσ_Index27 < ρσ_Iter27.length; ρσ_Index27++) {
-                event = ρσ_Iter27[ρσ_Index27];
+            var ρσ_Iter4 = ρσ_Iterable(registered_events);
+            for (var ρσ_Index4 = 0; ρσ_Index4 < ρσ_Iter4.length; ρσ_Index4++) {
+                event = ρσ_Iter4[ρσ_Index4];
                 document.removeEventListener.apply(document, event);
             }
         };

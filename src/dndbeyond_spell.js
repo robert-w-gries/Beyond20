@@ -2558,7 +2558,8 @@ function all(iterable) {
 if (!all.__argnames__) Object.defineProperties(all, {
     __argnames__ : {value: ["iterable"]}
 });
-var define_str_func, ρσ_unpack, ρσ_orig_split, ρσ_orig_replace;
+var decimal_sep, define_str_func, ρσ_unpack, ρσ_orig_split, ρσ_orig_replace;
+decimal_sep = 1.1.toLocaleString()[1];
 function ρσ_repr_js_builtin(x, as_array) {
     var ans, b, keys, key;
     ans = [];
@@ -2935,7 +2936,7 @@ define_str_func("format", function () {
                     value = value.toExponential(prec - 1);
                 }
                 value = value.replace(/0+$/g, "");
-                if (value[value.length-1] === ".") {
+                if (value[value.length-1] === decimal_sep) {
                     value = value.slice(0, -1);
                 }
                 if (ftype === "G") {
@@ -3749,7 +3750,9 @@ var str = ρσ_str, repr = ρσ_repr;;
             s.jsset.add("aside");
             s.jsset.add("audio");
             s.jsset.add("b");
+            s.jsset.add("base");
             s.jsset.add("big");
+            s.jsset.add("body");
             s.jsset.add("blockquote");
             s.jsset.add("br");
             s.jsset.add("button");
@@ -3788,6 +3791,7 @@ var str = ρσ_str, repr = ρσ_repr;;
             s.jsset.add("h5");
             s.jsset.add("h6");
             s.jsset.add("hr");
+            s.jsset.add("head");
             s.jsset.add("i");
             s.jsset.add("iframe");
             s.jsset.add("img");
@@ -4732,9 +4736,6 @@ var str = ρσ_str, repr = ρσ_repr;;
                             }
                             pos = close + 1;
                             continue;
-                        }
-                        if (extension === "<") {
-                            throw new SyntaxError("Look behind assertions are not supported in JavaScript");
                         }
                         if (extension === "(") {
                             throw new SyntaxError("Group existence assertions are not supported in JavaScript");
@@ -6494,12 +6495,28 @@ var str = ρσ_str, repr = ρσ_repr;;
         });
 
         function initializeMarka() {
-            var groups, group;
+            var groups, buttons, group, trigger, button;
             groups = $(".beyond20-option-combobox");
+            buttons = $(".beyond20-option-button");
             var ρσ_Iter4 = ρσ_Iterable(groups);
             for (var ρσ_Index4 = 0; ρσ_Index4 < ρσ_Iter4.length; ρσ_Index4++) {
                 group = ρσ_Iter4[ρσ_Index4];
                 initializeMarkaGroup(group);
+            }
+            var ρσ_Iter5 = ρσ_Iterable(buttons);
+            for (var ρσ_Index5 = 0; ρσ_Index5 < ρσ_Iter5.length; ρσ_Index5++) {
+                button = ρσ_Iter5[ρσ_Index5];
+                trigger = $(button).find(".trigger");
+                trigger.bind("click", (function() {
+                    var ρσ_anonfunc = function (event) {
+                        event.preventDefault();
+                        alert("TEST TEST TEST");
+                    };
+                    if (!ρσ_anonfunc.__argnames__) Object.defineProperties(ρσ_anonfunc, {
+                        __argnames__ : {value: ["event"]}
+                    });
+                    return ρσ_anonfunc;
+                })());
             }
         };
 
@@ -6512,9 +6529,9 @@ var str = ρσ_str, repr = ρσ_repr;;
             }
             var settings, e, o_type, val, choices, key, option;
             settings = {};
-            var ρσ_Iter5 = ρσ_Iterable(_list);
-            for (var ρσ_Index5 = 0; ρσ_Index5 < ρσ_Iter5.length; ρσ_Index5++) {
-                option = ρσ_Iter5[ρσ_Index5];
+            var ρσ_Iter6 = ρσ_Iterable(_list);
+            for (var ρσ_Index6 = 0; ρσ_Index6 < ρσ_Iter6.length; ρσ_Index6++) {
+                option = ρσ_Iter6[ρσ_Index6];
                 e = $("#" + option);
                 if (e.length > 0) {
                     o_type = _list[(typeof option === "number" && option < 0) ? _list.length + option : option].type;
@@ -6523,9 +6540,9 @@ var str = ρσ_str, repr = ρσ_repr;;
                     } else if ((o_type === "combobox" || typeof o_type === "object" && ρσ_equals(o_type, "combobox"))) {
                         val = e.text();
                         choices = _list[(typeof option === "number" && option < 0) ? _list.length + option : option].choices;
-                        var ρσ_Iter6 = ρσ_Iterable(choices);
-                        for (var ρσ_Index6 = 0; ρσ_Index6 < ρσ_Iter6.length; ρσ_Index6++) {
-                            key = ρσ_Iter6[ρσ_Index6];
+                        var ρσ_Iter7 = ρσ_Iterable(choices);
+                        for (var ρσ_Index7 = 0; ρσ_Index7 < ρσ_Iter7.length; ρσ_Index7++) {
+                            key = ρσ_Iter7[ρσ_Index7];
                             if ((choices[(typeof key === "number" && key < 0) ? choices.length + key : key] === val || typeof choices[(typeof key === "number" && key < 0) ? choices.length + key : key] === "object" && ρσ_equals(choices[(typeof key === "number" && key < 0) ? choices.length + key : key], val))) {
                                 settings[(typeof option === "number" && option < 0) ? settings.length + option : option] = key;
                                 break;
@@ -6555,9 +6572,9 @@ var str = ρσ_str, repr = ρσ_repr;;
                 _list = ρσ_kwargs_obj._list;
             }
             var o_type, val, choices, option;
-            var ρσ_Iter7 = ρσ_Iterable(settings);
-            for (var ρσ_Index7 = 0; ρσ_Index7 < ρσ_Iter7.length; ρσ_Index7++) {
-                option = ρσ_Iter7[ρσ_Index7];
+            var ρσ_Iter8 = ρσ_Iterable(settings);
+            for (var ρσ_Index8 = 0; ρσ_Index8 < ρσ_Iter8.length; ρσ_Index8++) {
+                option = ρσ_Iter8[ρσ_Index8];
                 if (!_list[(typeof option === "number" && option < 0) ? _list.length + option : option]) {
                     continue;
                 }
@@ -6660,14 +6677,14 @@ var str = ρσ_str, repr = ρσ_repr;;
             title = (short) ? "Send Beyond 20 rolls to" : opt.title;
             description_p = list(map(E.p, description.split("\n")));
             options = ρσ_list_decorate([]);
-            var ρσ_Iter8 = ρσ_Iterable(dropdown_options);
-            for (var ρσ_Index8 = 0; ρσ_Index8 < ρσ_Iter8.length; ρσ_Index8++) {
-                option = ρσ_Iter8[ρσ_Index8];
+            var ρσ_Iter9 = ρσ_Iterable(dropdown_options);
+            for (var ρσ_Index9 = 0; ρσ_Index9 < ρσ_Iter9.length; ρσ_Index9++) {
+                option = ρσ_Iter9[ρσ_Index9];
                 options.append(E.li(ρσ_interpolate_kwargs.call(E, E.a, [option].concat([ρσ_desugar_kwargs({href: "#"})]))));
             }
-            var ρσ_Iter9 = ρσ_Iterable(description_p);
-            for (var ρσ_Index9 = 0; ρσ_Index9 < ρσ_Iter9.length; ρσ_Index9++) {
-                p = ρσ_Iter9[ρσ_Index9];
+            var ρσ_Iter10 = ρσ_Iterable(description_p);
+            for (var ρσ_Index10 = 0; ρσ_Index10 < ρσ_Iter10.length; ρσ_Index10++) {
+                p = ρσ_Iter10[ρσ_Index10];
                 p.classList.add("select");
             }
             return ρσ_interpolate_kwargs.call(E, E.li, [ρσ_interpolate_kwargs.call(E, E.label, [ρσ_interpolate_kwargs.call(E, E.h4, [title].concat([ρσ_desugar_kwargs({class_: "select"})]))].concat(description_p).concat([ρσ_interpolate_kwargs.call(E, E.div, [ρσ_interpolate_kwargs.call(E, E.a, ["All VTT Tabs"].concat([ρσ_desugar_kwargs({id: name, class_: "input select beyond20-option-input", href: ""})])), ρσ_interpolate_kwargs.call(E, E.ul, options.concat([ρσ_desugar_kwargs({class_: "dropdown-menu"})])), ρσ_interpolate_kwargs.call(E, E.i, [ρσ_desugar_kwargs({id: name + "--icon", class_: "icon select"})])].concat([ρσ_desugar_kwargs({class_: "button-group"})]))]).concat([ρσ_desugar_kwargs({class_: "list-content", for_: name})]))].concat([ρσ_desugar_kwargs({id: "beyond20-option-vtt-tab", class_: "list-group-item beyond20-option beyond20-option-combobox" + ((short) ? " vtt-tab-short" : "")})]));
@@ -6746,9 +6763,9 @@ var str = ρσ_str, repr = ρσ_repr;;
                 }
                 if ((typeof new_options !== "undefined" && new_options !== null)) {
                     dropdown_options = ρσ_list_decorate([]);
-                    var ρσ_Iter10 = ρσ_Iterable(new_options);
-                    for (var ρσ_Index10 = 0; ρσ_Index10 < ρσ_Iter10.length; ρσ_Index10++) {
-                        option = ρσ_Iter10[ρσ_Index10];
+                    var ρσ_Iter11 = ρσ_Iterable(new_options);
+                    for (var ρσ_Index11 = 0; ρσ_Index11 < ρσ_Iter11.length; ρσ_Index11++) {
+                        option = ρσ_Iter11[ρσ_Index11];
                         dropdown_options.append(E.li(ρσ_interpolate_kwargs.call(E, E.a, [option].concat([ρσ_desugar_kwargs({href: "#"})]))));
                     }
                     combobox.replaceWith(createRoll20TabCombobox("vtt-tab", short, dropdown_options));
@@ -7407,7 +7424,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 data = ρσ_kwargs_obj.data;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var advantage, roll_1, roll_2, roll_3;
                 advantage = request.advantage;
                 if ((advantage === RollType.prototype.QUERY || typeof advantage === "object" && ρσ_equals(advantage, RollType.prototype.QUERY))) {
@@ -7524,7 +7542,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 is_total = ρσ_kwargs_obj.is_total;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var hit, fail, roll_type_class, total, tooltip;
                 hit = roll.isCriticalHit();
                 fail = roll.isCriticalFail();
@@ -7587,7 +7606,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 open = ρσ_kwargs_obj.open;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var play_sound, buttons, makeCB, html, attr, ρσ_unpack, name, value, roll_html, i, roll, add_totals, total_damages, is_total, roll_name, kind_of_damage, regular, versatile, flags, key, button, character;
                 play_sound = false;
                 buttons = {};
@@ -8104,7 +8124,8 @@ var str = ρσ_str, repr = ρσ_repr;;
         Beyond20RollRenderer.prototype.buildAttackRolls = function buildAttackRolls(request, custom_roll_dice) {
             var self = this;
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var to_hit, damage_rolls, is_critical, critical_limit, custom, to_hit_mod, damages, damage_types, critical_damages, critical_damage_types, damage_choices, critical_damage_choices, idx, dmgtype, chromatic_type, crit_damage, base_damage, ttd_dice, has_versatile, roll, dmg_type, damage_flags, suffix, i, ρσ_unpack, flags, chaos_bolt_damages, r, chaotic_type, dmg_roll;
                 to_hit = ρσ_list_decorate([]);
                 damage_rolls = ρσ_list_decorate([]);
@@ -8273,7 +8294,8 @@ var str = ρσ_str, repr = ρσ_repr;;
                 custom_roll_dice = ρσ_kwargs_obj.custom_roll_dice;
             }
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var ρσ_unpack, to_hit, damage_rolls, data, roll_info;
                 ρσ_unpack = await self.buildAttackRolls(request, custom_roll_dice);
 ρσ_unpack = ρσ_unpack_asarray(2, ρσ_unpack);
@@ -8336,7 +8358,8 @@ var str = ρσ_str, repr = ρσ_repr;;
         Beyond20RollRenderer.prototype.rollSpellAttack = function rollSpellAttack(request, custom_roll_dice) {
             var self = this;
             var async_function;
-            async_function = async            function () {
+            async_function = async;
+            function () {
                 var spell_card, roll_info, components, prefix, ρσ_unpack, attack_rolls, damage_rolls;
                 spell_card = self.buildSpellCard(request);
                 roll_info = ρσ_list_decorate([]);

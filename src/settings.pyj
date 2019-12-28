@@ -435,9 +435,17 @@ def initializeMarkaGroup(group):
 
 def initializeMarka():
     groups = $('.beyond20-option-combobox')
+    buttons = $('.beyond20-option-button')
 
     for group in groups:
         initializeMarkaGroup(group)
+
+    for button in buttons:
+        trigger = $(button).find('.trigger')
+        trigger.bind("click", def(event):
+            event.preventDefault()
+            alert("TEST TEST TEST")
+        )
 
 def extractSettingsData(_list=options_list):
     settings = {}
