@@ -152,13 +152,12 @@ def actOnCurrentTab(tabs):
         if vtt == "Roll20":
             e = createHTMLOption("roll20-template", False)
             options.append(e)
-            name = "str"
             options.append(E.li(class_="list-group-item beyond20-option beyond20-option-button",
-                E.label(class_="list-content", for_=name,
-                    E.h4(class_="trigger", "STRANTH"),
-                    "Roll some STRANTH",
-                    E.div(class_="trigger", style="text-align: center; vertical-align: top;",
-                        E.img(class_="link-image", src="images/dice16.png"),
+                E.label(class_="list-content", for_="dice_roll",
+                    E.h4(class_="trigger", "Roll Dice"),
+                    E.p(class_="trigger", "Take a chance, roll the dice."),
+                    E.div(class_="image-link trigger",
+                        E.img(class_="link-image", src="images/dice32.png")
                     )
                 )
             ))

@@ -6491,9 +6491,10 @@ var str = ρσ_str, repr = ρσ_repr;;
         });
 
         function initializeMarka() {
-            var groups, buttons, group, trigger, button;
+            var groups, buttons, load, group, trigger, button;
             groups = $(".beyond20-option-combobox");
             buttons = $(".beyond20-option-button");
+            load = async function load() { let rust = await import("../wasm-rouler/pkg/wasm_rouler.js"); await rust.default(); rust.roll("1+1"); };;
             var ρσ_Iter4 = ρσ_Iterable(groups);
             for (var ρσ_Index4 = 0; ρσ_Index4 < ρσ_Iter4.length; ρσ_Index4++) {
                 group = ρσ_Iter4[ρσ_Index4];
@@ -6506,7 +6507,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 trigger.bind("click", (function() {
                     var ρσ_anonfunc = function (event) {
                         event.preventDefault();
-                        alert("TEST TEST TEST");
+                        load();
                     };
                     if (!ρσ_anonfunc.__argnames__) Object.defineProperties(ρσ_anonfunc, {
                         __argnames__ : {value: ["event"]}
@@ -7420,8 +7421,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 data = ρσ_kwargs_obj.data;
             }
             var async_function;
-            async_function = async;
-            function () {
+            async_function = async            function () {
                 var advantage, roll_1, roll_2, roll_3;
                 advantage = request.advantage;
                 if ((advantage === RollType.prototype.QUERY || typeof advantage === "object" && ρσ_equals(advantage, RollType.prototype.QUERY))) {
@@ -7538,8 +7538,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 is_total = ρσ_kwargs_obj.is_total;
             }
             var async_function;
-            async_function = async;
-            function () {
+            async_function = async            function () {
                 var hit, fail, roll_type_class, total, tooltip;
                 hit = roll.isCriticalHit();
                 fail = roll.isCriticalFail();
@@ -7602,8 +7601,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 open = ρσ_kwargs_obj.open;
             }
             var async_function;
-            async_function = async;
-            function () {
+            async_function = async            function () {
                 var play_sound, buttons, makeCB, html, attr, ρσ_unpack, name, value, roll_html, i, roll, add_totals, total_damages, is_total, roll_name, kind_of_damage, regular, versatile, flags, key, button, character;
                 play_sound = false;
                 buttons = {};
@@ -8120,8 +8118,7 @@ var str = ρσ_str, repr = ρσ_repr;;
         Beyond20RollRenderer.prototype.buildAttackRolls = function buildAttackRolls(request, custom_roll_dice) {
             var self = this;
             var async_function;
-            async_function = async;
-            function () {
+            async_function = async            function () {
                 var to_hit, damage_rolls, is_critical, critical_limit, custom, to_hit_mod, damages, damage_types, critical_damages, critical_damage_types, damage_choices, critical_damage_choices, idx, dmgtype, chromatic_type, crit_damage, base_damage, ttd_dice, has_versatile, roll, dmg_type, damage_flags, suffix, i, ρσ_unpack, flags, chaos_bolt_damages, r, chaotic_type, dmg_roll;
                 to_hit = ρσ_list_decorate([]);
                 damage_rolls = ρσ_list_decorate([]);
@@ -8290,8 +8287,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 custom_roll_dice = ρσ_kwargs_obj.custom_roll_dice;
             }
             var async_function;
-            async_function = async;
-            function () {
+            async_function = async            function () {
                 var ρσ_unpack, to_hit, damage_rolls, data, roll_info;
                 ρσ_unpack = await self.buildAttackRolls(request, custom_roll_dice);
 ρσ_unpack = ρσ_unpack_asarray(2, ρσ_unpack);
@@ -8354,8 +8350,7 @@ var str = ρσ_str, repr = ρσ_repr;;
         Beyond20RollRenderer.prototype.rollSpellAttack = function rollSpellAttack(request, custom_roll_dice) {
             var self = this;
             var async_function;
-            async_function = async;
-            function () {
+            async_function = async            function () {
                 var spell_card, roll_info, components, prefix, ρσ_unpack, attack_rolls, damage_rolls;
                 spell_card = self.buildSpellCard(request);
                 roll_info = ρσ_list_decorate([]);
@@ -8982,8 +8977,7 @@ return this.__repr__();
             __argnames__ : {value: ["request", "custom_roll_dice"]}
         });
 
-        async;
-        function addInitiativeToCombat(roll) {
+        async        function addInitiativeToCombat(roll) {
             var combatant, promise, token;
             if (canvas.tokens.controlledTokens.length > 0) {
                 if (ρσ_exists.n(game.combat)) {

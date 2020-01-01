@@ -6513,9 +6513,10 @@ var str = ρσ_str, repr = ρσ_repr;;
         });
 
         function initializeMarka() {
-            var groups, buttons, group, trigger, button;
+            var groups, buttons, load, group, trigger, button;
             groups = $(".beyond20-option-combobox");
             buttons = $(".beyond20-option-button");
+            load = async function load() { let rust = await import("../wasm-rouler/pkg/wasm_rouler.js"); await rust.default(); rust.roll("1+1"); };;
             var ρσ_Iter4 = ρσ_Iterable(groups);
             for (var ρσ_Index4 = 0; ρσ_Index4 < ρσ_Iter4.length; ρσ_Index4++) {
                 group = ρσ_Iter4[ρσ_Index4];
@@ -6528,7 +6529,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 trigger.bind("click", (function() {
                     var ρσ_anonfunc = function (event) {
                         event.preventDefault();
-                        alert("TEST TEST TEST");
+                        load();
                     };
                     if (!ρσ_anonfunc.__argnames__) Object.defineProperties(ρσ_anonfunc, {
                         __argnames__ : {value: ["event"]}

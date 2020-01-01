@@ -6490,9 +6490,10 @@ var str = ρσ_str, repr = ρσ_repr;;
         });
 
         function initializeMarka() {
-            var groups, buttons, group, trigger, button;
+            var groups, buttons, load, group, trigger, button;
             groups = $(".beyond20-option-combobox");
             buttons = $(".beyond20-option-button");
+            load = async function load() { let rust = await import("../wasm-rouler/pkg/wasm_rouler.js"); await rust.default(); rust.roll("1+1"); };;
             var ρσ_Iter4 = ρσ_Iterable(groups);
             for (var ρσ_Index4 = 0; ρσ_Index4 < ρσ_Iter4.length; ρσ_Index4++) {
                 group = ρσ_Iter4[ρσ_Index4];
@@ -6505,7 +6506,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 trigger.bind("click", (function() {
                     var ρσ_anonfunc = function (event) {
                         event.preventDefault();
-                        alert("TEST TEST TEST");
+                        load();
                     };
                     if (!ρσ_anonfunc.__argnames__) Object.defineProperties(ρσ_anonfunc, {
                         __argnames__ : {value: ["event"]}
@@ -7148,7 +7149,7 @@ var str = ρσ_str, repr = ρσ_repr;;
         });
 
         function actOnCurrentTab(tabs) {
-            var vtt, options, e, name;
+            var vtt, options, e;
             setCurrentTab(tabs[0]);
             if (urlMatches(tabs[0].url, ROLL20_URL) || isFVTT(tabs[0].title)) {
                 vtt = (isFVTT(tabs[0].title)) ? "Foundry VTT" : "Roll20";
@@ -7157,8 +7158,7 @@ var str = ρσ_str, repr = ρσ_repr;;
                 if ((vtt === "Roll20" || typeof vtt === "object" && ρσ_equals(vtt, "Roll20"))) {
                     e = createHTMLOption("roll20-template", false);
                     options.append(e);
-                    name = "str";
-                    options.append(ρσ_interpolate_kwargs.call(E, E.li, [ρσ_interpolate_kwargs.call(E, E.label, [ρσ_interpolate_kwargs.call(E, E.h4, ["STRANTH"].concat([ρσ_desugar_kwargs({class_: "trigger"})])), "Roll some STRANTH", ρσ_interpolate_kwargs.call(E, E.div, [ρσ_interpolate_kwargs.call(E, E.img, [ρσ_desugar_kwargs({class_: "link-image", src: "images/dice16.png"})])].concat([ρσ_desugar_kwargs({class_: "trigger", style: "text-align: center; vertical-align: top;"})]))].concat([ρσ_desugar_kwargs({class_: "list-content", for_: name})]))].concat([ρσ_desugar_kwargs({class_: "list-group-item beyond20-option beyond20-option-button"})])));
+                    options.append(ρσ_interpolate_kwargs.call(E, E.li, [ρσ_interpolate_kwargs.call(E, E.label, [ρσ_interpolate_kwargs.call(E, E.h4, ["Roll Dice"].concat([ρσ_desugar_kwargs({class_: "trigger"})])), ρσ_interpolate_kwargs.call(E, E.p, ["Take a chance, roll the dice."].concat([ρσ_desugar_kwargs({class_: "trigger"})])), ρσ_interpolate_kwargs.call(E, E.div, [ρσ_interpolate_kwargs.call(E, E.img, [ρσ_desugar_kwargs({class_: "link-image", src: "images/dice32.png"})])].concat([ρσ_desugar_kwargs({class_: "image-link trigger"})]))].concat([ρσ_desugar_kwargs({class_: "list-content", for_: "dice_roll"})]))].concat([ρσ_desugar_kwargs({class_: "list-group-item beyond20-option beyond20-option-button"})])));
                 }
                 e = createHTMLOption("display-conditions", false);
                 options.append(e);

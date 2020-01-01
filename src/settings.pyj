@@ -436,6 +436,7 @@ def initializeMarkaGroup(group):
 def initializeMarka():
     groups = $('.beyond20-option-combobox')
     buttons = $('.beyond20-option-button')
+    load = v'async function load() { let rust = await import("../wasm-rouler/pkg/wasm_rouler.js"); await rust.default(); rust.roll("1+1"); };'
 
     for group in groups:
         initializeMarkaGroup(group)
@@ -444,7 +445,7 @@ def initializeMarka():
         trigger = $(button).find('.trigger')
         trigger.bind("click", def(event):
             event.preventDefault()
-            alert("TEST TEST TEST")
+            load()
         )
 
 def extractSettingsData(_list=options_list):
